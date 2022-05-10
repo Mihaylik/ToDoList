@@ -1,0 +1,84 @@
+﻿@model ToDoListSANA.Models.TaskViewModel
+<h1>Create Task</h1>
+
+<div class="flex-container">
+    @using (Html.BeginForm())
+    {
+
+        @Html.AntiForgeryToken()
+
+
+        <table class="new-task-table">
+            @Html.ValidationSummary(true, "")
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Time start
+                </th>
+                <th>
+                    Deadline
+                </th>
+                <th>
+                    Category
+                </th>
+            </tr>
+            <tr>
+                <td class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.name)
+                        @Html.ValidationMessageFor(model => model.name, "")
+                    </div>
+                </td>
+
+                <td class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.timeStart)
+                        @Html.ValidationMessageFor(model => model.timeStart, "")
+                    </div>
+                </td>
+
+                <td class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.deadline)
+                        @Html.ValidationMessageFor(model => model.deadline, "")
+                    </div>
+                </td>
+
+                @{
+                    Model.passed = false;
+                }
+
+                <td class="form-group">
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.catagory.name, new SelectList(Model.categoryListModel.categories.Select(category=>category.name)))
+                    </div>
+                </td>
+
+                <td class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" />
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    }
+    <div style="position: absolute; right: 10%; display: flex; flex-direction: column;">
+        <form method="get">
+            <div>
+            @Html.DropDownList("categoryName", new SelectList(Model.categoryListModel.categories.Select(category=>category.name)))
+            <input type="submit" value="Submit" />
+            </div>
+            <div style="display: flex; align-content: center;">
+                @Html.ActionLink("Clear", "Index")
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <br />
+</div>

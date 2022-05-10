@@ -1,0 +1,12 @@
+﻿.tasks-table{
+    text-align: center;
+    width: 100%;
+    background-color: lightgray;
+    border-radius: 20px;
+}
+.new-task-table{
+    text-align: center;
+}
+.flex-container{
+    display: flex;
+}

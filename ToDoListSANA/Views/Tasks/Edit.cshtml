@@ -1,0 +1,64 @@
+﻿@model ToDoListSANA.Models.TaskViewModel
+<h1>Edit Panel</h1>
+
+@using (Html.BeginForm())   
+{  
+    @Html.AntiForgeryToken()  
+      
+    <div class="form-horizontal">  
+        <h4>Task</h4>  
+        <hr />  
+        @Html.ValidationSummary(true, "")  
+        @Html.HiddenFor(model=>model.idTask)
+        <div class="form-group">  
+            Name
+            <div class="col-md-10">  
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @value = @Model.name } })  
+                @Html.ValidationMessageFor(model => model.name, "")  
+            </div>  
+        </div>  
+  
+        <div class="form-group">  
+            Time Start
+            <div class="col-md-10">  
+                @Html.EditorFor(model => model.timeStart, new { htmlAttributes = new { @value = @Model.timeStart } })  
+                @Html.ValidationMessageFor(model => model.timeStart, "")  
+            </div>  
+        </div>  
+  
+        <div class="form-group">  
+            Deadline
+            <div class="col-md-10">  
+                @Html.EditorFor(model => model.deadline, new { htmlAttributes = new { @value = @Model.deadline} })  
+                @Html.ValidationMessageFor(model => model.deadline, "")  
+            </div>  
+        </div> 
+
+        
+        <div class="form-group">  
+            Passed
+            <div class="col-md-10">  
+                @Html.CheckBoxFor(model => model.passed)  
+                @Html.ValidationMessageFor(model => model.deadline, "")  
+            </div>  
+        </div> 
+        <div class="form-group">  
+            Category
+            <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.catagory.name, new SelectList(Model.categoryListModel.categories.Select(category=>category.name)))
+                </div>
+        </div>  
+  
+        <div class="form-group">  
+            <div class="col-md-offset-2 col-md-10">  
+                <br />
+                <input type="submit" value="Edit"/>  
+            </div>  
+        </div>  
+    </div>  
+}  
+  
+<div> 
+    <br />
+    @Html.ActionLink("Back to List", "Index")  
+</div> 

@@ -1,0 +1,78 @@
+﻿@model ToDoListSANA.Models.TaskListViewModel
+
+<link rel='stylesheet' href='~/css/style.css' />
+<div class="text-center">
+    <h1 class="display-4">To Do List</h1>
+</div>
+@await Component.InvokeAsync("CreateForm")
+<table class="tasks-table">
+    <tr>
+        <th>
+            <p>
+                Name
+            </p>
+        </th>
+        <th>
+            <p>
+                Time start
+            </p>
+        </th>
+        <th>
+            <p>
+                Deadline
+            </p>
+        </th>
+        <th>
+            <p>
+                Passed
+            </p>
+        </th>
+        <th>
+            <p>
+                Cattegory
+            </p>
+        </th>
+        <th>
+            <p>
+                More
+            </p>
+        </th>
+    </tr>
+    @foreach (var task in Model.Tasks)
+    {
+        <tr>
+            <td>
+                <p>
+                    @task.name
+                </p>
+            </td>
+            <td>
+                <p>
+                    @task.timeStart
+                </p>
+            </td>
+            <td>
+                <p>
+                    @task.deadline
+                </p>
+            </td>
+            <td>
+                <p>
+                    @task.passed
+                </p>
+            </td>
+            <td>
+                <p>
+                    @task.catagory.name
+                </p>
+            </td>
+            <td>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new {id = task.idTask}) | @Html.ActionLink("Delete", "Delete", new {id = task.idTask},  new { onclick = "return confirm('Are sure wants to delete?');" }) 
+                </p>
+            </td>
+        </tr>
+
+    }
+</table>
+

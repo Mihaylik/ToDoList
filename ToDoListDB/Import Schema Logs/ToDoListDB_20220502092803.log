@@ -1,0 +1,88 @@
+03.05.2022 00:28:03	This log contains information about the import schema operation into project 'ToDoListDB' on computer 'DESKTOP-ST1TL28' by user 'dima'.
+03.05.2022 00:28:03	Import of database schema has started.
+03.05.2022 00:28:15	Gathering database credentials
+03.05.2022 00:28:15	Gathering database options
+03.05.2022 00:28:15	Gathering generic database scoped configuration option
+03.05.2022 00:28:15	Gathering users
+03.05.2022 00:28:15	Gathering roles
+03.05.2022 00:28:15	Gathering application roles
+03.05.2022 00:28:15	Gathering role memberships
+03.05.2022 00:28:15	Gathering filegroups
+03.05.2022 00:28:15	Gathering full-text catalogs
+03.05.2022 00:28:15	Gathering assemblies
+03.05.2022 00:28:15	Gathering certificates
+03.05.2022 00:28:15	Gathering asymmetric keys
+03.05.2022 00:28:15	Gathering symmetric keys
+03.05.2022 00:28:15	Gathering encrypted symmetric keys
+03.05.2022 00:28:15	Gathering schemas
+03.05.2022 00:28:15	Gathering XML schema collections
+03.05.2022 00:28:15	Gathering user-defined data types
+03.05.2022 00:28:15	Gathering user-defined types
+03.05.2022 00:28:15	Gathering table types
+03.05.2022 00:28:15	Gathering unique keys for table types
+03.05.2022 00:28:15	Gathering primary keys for table types
+03.05.2022 00:28:15	Gathering indexes for table types
+03.05.2022 00:28:30	Gathering check constraints for table types
+03.05.2022 00:28:30	Gathering default constraints for table types
+03.05.2022 00:28:30	Gathering partition functions
+03.05.2022 00:28:30	Gathering partition schemes
+03.05.2022 00:28:30	Gathering functions
+03.05.2022 00:28:30	Gathering encrypted functions
+03.05.2022 00:28:30	Gathering aggregates
+03.05.2022 00:28:30	Gathering procedures
+03.05.2022 00:28:56	Gathering encrypted procedures
+03.05.2022 00:28:56	Gathering tables
+03.05.2022 00:29:21	Gathering primary keys
+03.05.2022 00:29:21	Gathering unique constraints
+03.05.2022 00:29:21	Gathering foreign keys
+03.05.2022 00:29:21	Gathering default constraints
+03.05.2022 00:29:21	Gathering check constraints
+03.05.2022 00:29:21	Gathering views
+03.05.2022 00:29:21	Gathering encrypted views
+03.05.2022 00:29:21	Gathering indexes
+03.05.2022 00:29:21	Gathering statistics
+03.05.2022 00:29:21	Gathering full-text index stoplists
+03.05.2022 00:29:21	Gathering search property lists
+03.05.2022 00:29:21	Gathering search properties
+03.05.2022 00:29:21	Gathering full-text indexes
+03.05.2022 00:29:21	Gathering column store indexes
+03.05.2022 00:29:21	Gathering spatial indexes
+03.05.2022 00:29:21	Gathering XML indexes
+03.05.2022 00:29:21	Gathering Selective XML indexes
+03.05.2022 00:29:21	Gathering encrypted triggers
+03.05.2022 00:29:21	Gathering triggers
+03.05.2022 00:30:15	Gathering encrypted and clr ddl triggers
+03.05.2022 00:30:15	Gathering ddl triggers
+03.05.2022 00:30:15	Creating edge constraints
+03.05.2022 00:30:15	Gathering synonyms
+03.05.2022 00:30:15	Gathering defaults
+03.05.2022 00:30:15	Gathering data constraint uddt bindings
+03.05.2022 00:30:15	Gathering rules
+03.05.2022 00:30:15	Gathering data constraint uddt bindings
+03.05.2022 00:30:15	Gathering message types
+03.05.2022 00:30:15	Gathering queues
+03.05.2022 00:30:15	Gathering contracts
+03.05.2022 00:30:15	Gathering services
+03.05.2022 00:30:15	Gathering event notifications
+03.05.2022 00:30:15	Gathering remote service bindings
+03.05.2022 00:30:15	Gathering broker priorities
+03.05.2022 00:30:15	Gathering signatures
+03.05.2022 00:30:15	Gathering data compression options
+03.05.2022 00:30:15	Gathering sequence types
+03.05.2022 00:30:15	Gathering security policies
+03.05.2022 00:30:16	Gather column encryption keys
+03.05.2022 00:30:16	Gathering column master keys
+03.05.2022 00:30:16	Gathering external data sources
+03.05.2022 00:30:16	Gathering external file formats
+03.05.2022 00:30:16	Gathering external tables
+03.05.2022 00:30:16	Gathering database permissions
+03.05.2022 00:30:16	Gathering extended properties
+03.05.2022 00:30:16	Gathering assemblies
+03.05.2022 00:30:16	Gathering credentials
+03.05.2022 00:30:16	Gathering logins
+03.05.2022 00:30:16	Gathering server audits
+03.05.2022 00:30:18	Scanning project for duplicate elements
+03.05.2022 00:30:19	Finished duplicate element processing
+03.05.2022 00:30:21	Finished importing database.
+03.05.2022 00:30:21	A summary of the import was saved to the following location: D:\repos\ToDoListSANA\ToDoListDB\Import Schema Logs\ToDoListDB_20220502092803.log
+03.05.2022 00:30:21	Click Finish to continue...
