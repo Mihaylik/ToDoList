@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DataWrapper xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<tasks>
+		<TaskDbModel>
+			<idTask>2</idTask>
+			<name>Networks 5</name>
+			<timeStart>2022-04-24T19:00:00</timeStart>
+			<deadline>2022-05-04T19:00:00</deadline>
+			<passed>false</passed>
+			<idCategory>1</idCategory>
+		</TaskDbModel>
+		<TaskDbModel>
+			<idTask>4</idTask>
+			<name>Systems 3</name>
+			<timeStart>2022-04-21T19:00:00</timeStart>
+			<deadline>2022-05-11T19:00:00</deadline>
+			<passed>true</passed>
+			<idCategory>1</idCategory>
+		</TaskDbModel>
+		<TaskDbModel>
+			<idTask>5005</idTask>
+			<name>TheEnd</name>
+			<timeStart>2022-09-02T13:51:00</timeStart>
+			<deadline>2022-09-02T14:51:00</deadline>
+			<passed>false</passed>
+			<idCategory>1007</idCategory>
+		</TaskDbModel>
+		<TaskDbModel>
+			<idTask>8</idTask>
+			<name>Team Project</name>
+			<timeStart>2022-06-30T14:00:00Z</timeStart>
+			<deadline>2022-06-30T14:30:00Z</deadline>
+			<passed>false</passed>
+			<idCategory>2</idCategory>
+		</TaskDbModel>
+		<TaskDbModel>
+			<idTask>5</idTask>
+			<name>Final</name>
+			<timeStart>2022-06-30T14:00:00Z</timeStart>
+			<deadline>2022-06-30T14:30:00Z</deadline>
+			<passed>false</passed>
+			<idCategory>1007</idCategory>
+		</TaskDbModel>
+		<TaskDbModel>
+			<idTask>6</idTask>
+			<name>Team Work</name>
+			<timeStart>2022-06-29T17:00:00Z</timeStart>
+			<deadline>2022-08-15T14:30:00Z</deadline>
+			<passed>false</passed>
+			<idCategory>8</idCategory>
+		</TaskDbModel>
+		<TaskDbModel>
+			<idTask>7</idTask>
+			<name>A lot of labs</name>
+			<timeStart>2022-06-29T17:00:00Z</timeStart>
+			<deadline>2022-08-15T14:30:00Z</deadline>
+			<passed>false</passed>
+			<idCategory>1</idCategory>
+		</TaskDbModel>
+	</tasks>
+	<categories>
+		<CategoryDbModel>
+			<idCategory>1</idCategory>
+			<name>Lab</name>
+		</CategoryDbModel>
+		<CategoryDbModel>
+			<idCategory>2</idCategory>
+			<name>Test</name>
+		</CategoryDbModel>
+		<CategoryDbModel>
+			<idCategory>3</idCategory>
+			<name>Other</name>
+		</CategoryDbModel>
+		<CategoryDbModel>
+			<idCategory>1005</idCategory>
+			<name>Exam</name>
+		</CategoryDbModel>
+		<CategoryDbModel>
+			<idCategory>1007</idCategory>
+			<name>Interview</name>
+		</CategoryDbModel>
+		<CategoryDbModel>
+			<idCategory>6</idCategory>
+			<name>Relax</name>
+		</CategoryDbModel>
+		<CategoryDbModel>
+			<idCategory>8</idCategory>
+			<name>Other</name>
+		</CategoryDbModel>
+	</categories>
+</DataWrapper>

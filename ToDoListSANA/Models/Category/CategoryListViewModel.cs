@@ -1,4 +1,4 @@
-﻿namespace ToDoListSANA.Models.Category
+﻿namespace ToDoListSANA.Models
 {
     public class CategoryListViewModel
     {

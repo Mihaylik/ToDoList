@@ -4,7 +4,7 @@ namespace ToDoListSANA.Models
 {
     public class TaskListViewModel
     {
-        public List<TaskViewModel> Tasks { get; set; }
+        public List<TaskViewModel> tasks { get; set; }
 
     }
 }

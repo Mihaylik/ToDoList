@@ -1,12 +1,13 @@
 ﻿using DataAccess.Models;
+using SqlDataAccess.Data;
 
-namespace DataAccess.Data.Category
+namespace DataAccess.Data.Task
 {
-    public interface ICategoryData
+    public interface ICategoryData : IData
     {
-        Task DeleteCategory(int idCategory);
+        System.Threading.Tasks.Task DeleteCategory(int idCategory);
         Task<CategoryDbModel> GetCategory(int idCategory);
-        Task<IEnumerable<CategoryDbModel>> GetCategorys();
-        Task InserCategory(CategoryDbModel category);
+        Task<IEnumerable<CategoryDbModel>> GetCategories();
+        System.Threading.Tasks.Task InserCategory(CategoryDbModel category);
     }
 }

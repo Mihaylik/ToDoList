@@ -1,7 +1,4 @@
-﻿using DataAccess.Models;
-using ToDoListSANA.Models.Category;
-
-namespace ToDoListSANA.Models
+﻿namespace ToDoListSANA.Models
 {
     public class TaskViewModel
     {

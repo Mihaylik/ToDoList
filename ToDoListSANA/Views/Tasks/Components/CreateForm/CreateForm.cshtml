@@ -66,10 +66,9 @@
         </table>
     }
     <div style="position: absolute; right: 10%; display: flex; flex-direction: column;">
-        <form method="get">
+        <form method="get" onchange="this.submit()">
             <div>
             @Html.DropDownList("categoryName", new SelectList(Model.categoryListModel.categories.Select(category=>category.name)))
-            <input type="submit" value="Submit" />
             </div>
             <div style="display: flex; align-content: center;">
                 @Html.ActionLink("Clear", "Index")

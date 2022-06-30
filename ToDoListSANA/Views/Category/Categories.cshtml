@@ -1,0 +1,12 @@
+﻿@model ToDoListSANA.Models.CategoryListViewModel
+
+<h1>Categories</h1>
+<div class = "flex-container">
+    @foreach (var category in Model.categories)
+    {
+        <div class = "category-panel">
+            <h3>@category.name</h3>
+            @Html.ActionLink("Delete", "DeleteCategory", new {id = category.idCategory},  new { onclick = "return confirm('Are sure wants to delete?');" })
+        </div>
+    }
+</div>

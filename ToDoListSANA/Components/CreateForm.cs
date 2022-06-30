@@ -1,7 +1,8 @@
-﻿using DataAccess.Data.Category;
+﻿using DataAccess.Data.Task;
 using Microsoft.AspNetCore.Mvc;
+using ToDoListSANA.Enums;
 using ToDoListSANA.Models;
-using ToDoListSANA.Models.Category;
+using ToDoListSANA.Switcher;
 
 namespace ToDoListSANA.Components
 {
@@ -9,9 +10,11 @@ namespace ToDoListSANA.Components
     {
         private readonly ICategoryData categoryData;
 
-        public CreateForm(ICategoryData categoryData)
+        public CreateForm(IEnumerable<ICategoryData> categoryData, IHttpContextAccessor contextAccessor)
         {
-            this.categoryData = categoryData;
+            DataProvider dataProvider;
+            Enum.TryParse(contextAccessor.HttpContext.Request.Cookies["DataProvider"], out dataProvider);
+            this.categoryData = categoryData.GetPropered(dataProvider);
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
@@ -19,7 +22,7 @@ namespace ToDoListSANA.Components
             var model = new TaskViewModel();
             model.categoryListModel = new CategoryListViewModel();
 
-            var categories = await categoryData.GetCategorys();
+            var categories = await categoryData.GetCategories();
             model.categoryListModel = new CategoryListViewModel();
             model.categoryListModel.categories = new List<CategoryViewModel>();
             foreach (var category in categories)

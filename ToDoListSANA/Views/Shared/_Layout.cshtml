@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using ToDoListSANA.Enums
+
+@{
+    string currentDataProvider = ViewContext.HttpContext.Request.Cookies["DataProvider"];
+};
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -23,7 +30,20 @@
                             <a class="nav-link text-dark" asp-area="" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-action="Categories">Categories</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-action="CreateCategory">Create category</a>
+                        </li>
+                        <li class="nav-item">
+                            <form asp-action="ChangeDataProvider" onchange="this.submit()">
+                            <select name="dataProvider" id="dataProvider" class="form-control">
+                                @foreach (var dataProvider in Enum.GetNames(typeof(DataProvider)))
+                                {
+                                    <option selected=@((bool)(currentDataProvider == dataProvider)) value="@dataProvider">@dataProvider</option>
+                                }
+                            </select>
+                        </form>
                         </li>
                     </ul>
                 </div>

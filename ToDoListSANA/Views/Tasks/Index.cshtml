@@ -1,44 +1,85 @@
 ﻿@model ToDoListSANA.Models.TaskListViewModel
 
-<link rel='stylesheet' href='~/css/style.css' />
 <div class="text-center">
     <h1 class="display-4">To Do List</h1>
 </div>
 @await Component.InvokeAsync("CreateForm")
-<table class="tasks-table">
-    <tr>
-        <th>
-            <p>
-                Name
-            </p>
-        </th>
-        <th>
-            <p>
-                Time start
-            </p>
-        </th>
-        <th>
-            <p>
-                Deadline
-            </p>
-        </th>
-        <th>
-            <p>
-                Passed
-            </p>
-        </th>
-        <th>
-            <p>
-                Cattegory
-            </p>
-        </th>
-        <th>
-            <p>
-                More
-            </p>
-        </th>
-    </tr>
-    @foreach (var task in Model.Tasks)
+
+@{
+    GenerateTable("Not passed tasks");
+    GenerateTable("Tasks without deadline");
+    GenerateTable("Passed tasks");
+}
+
+@{
+    void GenerateTable(string tableName)
+    {
+        var filtredTasks = new List<TaskViewModel>();
+        @foreach (var task in Model.tasks)
+        {
+            bool filter = false;
+            if (tableName == "Not passed tasks")
+            {
+                filter = !task.passed && task.deadline != null;
+            }
+            else if (tableName == "Tasks without deadline")
+            {
+                filter = task.deadline == null;
+            }
+            else if (tableName == "Passed tasks")
+            {
+                filter = task.passed && task.deadline != null;
+            }
+            if (filter)
+            {
+                filtredTasks.Add(task);
+            }
+        }
+        if(filtredTasks.Count == 0){
+            return;
+        }
+        <table class="tasks-table">
+            <div class="table-caption">@tableName</div>
+            <tr>
+                <th>
+                    <p>
+                        Name
+                    </p>
+                </th>
+                <th>
+                    <p>
+                        Time start
+                    </p>
+                </th>
+                <th>
+                    <p>
+                        Deadline
+                    </p>
+                </th>
+                <th>
+                    <p>
+                        Passed
+                    </p>
+                </th>
+                <th>
+                    <p>
+                        Cattegory
+                    </p>
+                </th>
+                <th>
+                    <p>
+                        More
+                    </p>
+                </th>
+            </tr>
+            @foreach (var task in filtredTasks)
+            {
+                GenerateLine(task);
+            }
+        </table>
+
+    }
+    void GenerateLine(TaskViewModel? task)
     {
         <tr>
             <td>
@@ -58,7 +99,15 @@
             </td>
             <td>
                 <p>
-                    @task.passed
+                    @if (@task.passed)
+                    {
+                        <input type="checkbox" disabled checked>
+                    }
+                    else
+                    {
+                        <input type="checkbox" disabled>
+                    }
+
                 </p>
             </td>
             <td>
@@ -68,11 +117,10 @@
             </td>
             <td>
                 <p>
-                    @Html.ActionLink("Edit", "Edit", new {id = task.idTask}) | @Html.ActionLink("Delete", "Delete", new {id = task.idTask},  new { onclick = "return confirm('Are sure wants to delete?');" }) 
+                    @Html.ActionLink("Edit", "Edit", new {id = task.idTask}) | @Html.ActionLink("Delete", "DeleteTask", new {id = task.idTask},  new { onclick = "return confirm('Are sure wants to delete?');" })
                 </p>
             </td>
         </tr>
-
     }
-</table>
+}
 

@@ -1,9 +1,9 @@
-﻿using DataAccess.Data.Category;
+﻿using DataAccess.Data.Task;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+using ToDoListSANA.Enums;
 using ToDoListSANA.Models;
-using ToDoListSANA.Models.Category;
+using ToDoListSANA.Switcher;
 
 namespace ToDoListSANA.Controllers
 {
@@ -12,39 +12,50 @@ namespace ToDoListSANA.Controllers
         private readonly ITaskData taskData;
         private readonly ICategoryData categoryData;
 
-        public TasksController(ITaskData data, ICategoryData categoryData)
+        public TasksController(IEnumerable<ITaskData> taskData, IEnumerable<ICategoryData> categoryData, IHttpContextAccessor contextAccessor)
         {
-            this.taskData = data;
-            this.categoryData = categoryData;
+            DataProvider dataProvider;
+            Enum.TryParse(contextAccessor.HttpContext.Request.Cookies["DataProvider"], out dataProvider);
+            this.taskData = taskData.GetPropered(dataProvider);
+            this.categoryData = categoryData.GetPropered(dataProvider);
         }
 
         public async Task<IActionResult> Index(string categoryName)
         {
             var tasks = await taskData.GetTasks();
+            var categories = await categoryData.GetCategories();
             var listTasks = new TaskListViewModel()
             {
-                Tasks = new List<TaskViewModel>()
+                tasks = new List<TaskViewModel>()
             };
             foreach (var task in tasks)
             {
-                listTasks.Tasks.Add(await GetTaskViewModel(task.idTask));
+                listTasks.tasks.Add(await GetTaskViewModel(task.idTask));
             }
             var orderedListTasks = new TaskListViewModel()
             {
-                Tasks = new List<TaskViewModel>()
+                tasks = new List<TaskViewModel>()
             };
-            orderedListTasks.Tasks
-                .AddRange(listTasks.Tasks.Where(task => task.deadline != null && !task.passed/* && (idFilter == null) ? true :*/ )
+            orderedListTasks.tasks
+                .AddRange(listTasks.tasks.Where(task => task.deadline != null && !task.passed)
                 .OrderBy(task => task.deadline));
-            orderedListTasks.Tasks.AddRange(listTasks.Tasks.Where(task => task.deadline == null/* && (idFilter == null) ? true : task.catagory.name == idFilter)*/));
-            orderedListTasks.Tasks
-                .AddRange(listTasks.Tasks.Where(task => task.deadline != null && task.passed/* && (idFilter == null) ? true : task.catagory.name == idFilter*/)
+            orderedListTasks.tasks
+                .AddRange(listTasks.tasks.Where(task => task.deadline == null));
+            orderedListTasks.tasks
+                .AddRange(listTasks.tasks.Where(task => task.deadline != null && task.passed)
                 .OrderBy(task => task.deadline));
             if (categoryName != null)
             {
-                orderedListTasks.Tasks = orderedListTasks.Tasks.Where(task => task.catagory.name == categoryName).ToList();
+                orderedListTasks.tasks = orderedListTasks.tasks
+                    .Where(task => task.catagory.name == categoryName).ToList();
             }
             return View(orderedListTasks);
+        }
+        [HttpPost]
+        public IActionResult ChangeDataProvider(DataProvider dataProvider)
+        {
+            Response.Cookies.Append("DataProvider", dataProvider.ToString());
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public async Task<IActionResult> Datails(int id)
@@ -55,11 +66,11 @@ namespace ToDoListSANA.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(TaskViewModel createdTask)
         {
-            if (createdTask.catagory.name == null)
+            if (createdTask.name == null)
             {
                 return RedirectToAction("Index");
             }
-            var categorys = await categoryData.GetCategorys();
+            var categorys = await categoryData.GetCategories();
             var dbModel = new TaskDbModel()
             {
                 name = createdTask.name,
@@ -68,14 +79,14 @@ namespace ToDoListSANA.Controllers
                 passed = createdTask.passed,
                 idCategory = categorys.First(category => category.name == createdTask.catagory.name).idCategory
             };
-            await taskData.InserTask(dbModel);
+            await taskData.InsertTask(dbModel);
             return RedirectToAction("Index");
         }
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var model = await GetTaskViewModel(id);
-            var categories = await categoryData.GetCategorys();
+            var categories = await categoryData.GetCategories();
             model.categoryListModel = new CategoryListViewModel();
             model.categoryListModel.categories = new List<CategoryViewModel>();
             foreach (var category in categories)
@@ -91,7 +102,7 @@ namespace ToDoListSANA.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(TaskViewModel editedTask)
         {
-            var categorys = await categoryData.GetCategorys();
+            var categorys = await categoryData.GetCategories();
             var dbModel = new TaskDbModel()
             {
                 idTask = editedTask.idTask,
@@ -105,7 +116,7 @@ namespace ToDoListSANA.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteTask(int id)
         {
             await taskData.DeleteTask(id);
             return RedirectToAction("Index");
@@ -118,6 +129,10 @@ namespace ToDoListSANA.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CategoryViewModel category)
         {
+            if (category.name == null)
+            {
+                return RedirectToAction("Index");
+            }
             var dbModel = new CategoryDbModel()
             {
                 name = category.name
@@ -143,5 +158,41 @@ namespace ToDoListSANA.Controllers
                 }
             };
         }
+        [HttpGet]
+        public async Task<IActionResult> Categories()
+        {
+            var categories = await categoryData.GetCategories();
+            var listCategories = new CategoryListViewModel()
+            {
+                categories = new List<CategoryViewModel>()
+            };
+            foreach(var category in categories)
+            {
+                listCategories.categories.Add(await GetCategoryViewModel(category.idCategory));
+            }
+            return View("Views/Category/Categories.cshtml", listCategories);
+        }
+        [HttpGet]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            var tasks = await taskData.GetTasks();
+            var tasksWithThisCategory = tasks.Where(task => task.idCategory == id);
+            foreach (var task in tasksWithThisCategory)
+            {
+                await taskData.DeleteTask(task.idTask);
+            }
+            await categoryData.DeleteCategory(id);
+            return RedirectToAction("Views/Category/Categories.cshtml");
+        }
+        public async Task<CategoryViewModel> GetCategoryViewModel(int id)
+        {
+            var category = await categoryData.GetCategory(id);
+            return new CategoryViewModel
+            {
+                idCategory = category.idCategory,
+                name = category.name
+            };
+        }
+
     }
 }

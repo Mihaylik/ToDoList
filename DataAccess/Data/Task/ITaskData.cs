@@ -1,13 +1,14 @@
 ﻿using DataAccess.Models;
+using SqlDataAccess.Data;
 
 namespace DataAccess.Data
 {
-    public interface ITaskData
+    public interface ITaskData : IData
     {
-        Task DeleteTask(int idTask);
+        System.Threading.Tasks.Task DeleteTask(int idTask);
         Task<TaskDbModel> GetTask(int idTask);
         Task<IEnumerable<TaskDbModel>> GetTasks();
-        Task InserTask(TaskDbModel task);
-        Task UpdateTask(TaskDbModel task);
+        System.Threading.Tasks.Task InsertTask(TaskDbModel task);
+        System.Threading.Tasks.Task UpdateTask(TaskDbModel task);
     }
 }
